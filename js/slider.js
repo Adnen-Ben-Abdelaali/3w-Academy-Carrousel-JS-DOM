@@ -3,7 +3,8 @@
 /*************************************************************************************************/
 /* ****************************************** DONNEES ****************************************** */
 /*************************************************************************************************/
-const slides = [{src: 'images/1.jpg', legende: 'Street Art'}, {src: 'images/2.jpg', legende: 'image du slider'}, {src: 'images/3.jpg', legende: 'troisième image du slider'}, {src: 'images/4.jpg', legende: 'école de Tunis'}, {src: 'images/5.jpg', legende: 'Image du net'}, {src: 'images/5.jpg', legende: 'la sixième image'}];
+const slides = [{src: 'images/1.jpg', legende: 'Street Art'}, {src: 'images/2.jpg', legende: 'image du slider'}, {src: 'images/3.jpg', legende: 'troisième image du slider'}, {src: 'images/4.jpg', legende: 'école de Tunis'},
+{src: 'images/5.jpg', legende: 'Image du net'}, {src: 'images/6.jpg', legende: 'la sixième image'}];
 let imageCourante = 0;
 const silderPrevious = document.getElementById("slider-previous");
 const sliderToggle = document.getElementById("slider-toggle");
@@ -59,6 +60,16 @@ function onClickSliderPrevious() {
   }
   refreshSlider();
 }
+function onClickSliderToggle() {
+  if(playOnOff === null) {
+    playOnOff = setInterval(onClickSliderNext, 1500);
+    this.setAttribute("title", "Arreter le carrousel");
+  }else {
+    clearInterval(playOnOff);
+    this.setAttribute("title", "Démarrer le carrousel");
+    playOnOff = null;
+  }
+}
 
 /******************* Variable declaration **********************/
 
@@ -74,20 +85,35 @@ function onClickSliderPrevious() {
  sliderRandom.addEventListener("click", onClickSliderRandom);
 
 
-  sliderToggle.addEventListener("click", function() {
-    if(playOnOff === null) {
-      playOnOff = setInterval(onClickSliderNext, 1500);
-      this.setAttribute("title", "Arreter le carrousel");
-    }else {
-      clearInterval(playOnOff);
-      this.setAttribute("title", "Démarrer le carrousel");
-      playOnOff = null;
-    }
-  } );
+  sliderToggle.addEventListener("click", onClickSliderToggle);
 
 toolbarToggle.addEventListener("click", function() {
   controlMenu.classList.toggle("hide");
 })
+
+function keyPressed(event) {
+  switch (event.code) {
+    case "Left":
+    case "ArrowLeft":
+      onClickSliderPrevious();
+      break;
+    case "Right":
+    case "ArrowRight":
+      onClickSliderNext();
+      break;
+    case "Space":
+      onClickSliderToggle();
+      break;
+    default:
+      return;
+  }
+}
+
+
+/* Accept the use of keyboard  left and right arrows and spaceBar  */
+document.addEventListener('keyup', keyPressed);
+
+
 /*************************************************************************************************/
 /* ************************************** CODE PRINCIPAL *************************************** */
 /*************************************************************************************************/
