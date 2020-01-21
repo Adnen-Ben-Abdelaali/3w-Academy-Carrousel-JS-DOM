@@ -41,10 +41,7 @@ header
 }
 ​
 ​
-.hide
-{
-    display: none;
-}
+
 ​
 .slider
 {
@@ -85,4 +82,9 @@ header
 .toolbar ul li + li
 {
     margin-left: 1em;
+}
+
+.hide
+{
+    display: none;
 }
